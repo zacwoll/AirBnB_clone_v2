@@ -119,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
             if not args:
                 raise SyntaxError()
             command = args.split(" ")
-            print(command)
+            # print(command)
             # create the object like this => eval(BaseModel())
             obj = eval("{}()".format(command[0]))
             # populate the object's parameters
@@ -134,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         except NameError:
             print("** class doesn't exist **")
-        #new_instance = HBNBCommand.classes[args]()
+        # new_instance = HBNBCommand.classes[args]()
 
     def help_create(self):
         """ Help information for the create method """
