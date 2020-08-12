@@ -4,6 +4,7 @@ from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.user import User
+from models.city import City
 from models.state import State
 from models.amenity import Amenity
 from models.place import Place
@@ -31,13 +32,13 @@ class DBStorage:
     def all(self, cls=None):
         """ Show all class objects in DB storage or specified class """
         if cls:
-            object = self.__session.query(cls).all()
+            objects = self.__session.query(cls).all()
         else:
-            classes = [State, City, User, Place, Review, Amenity]
+            classes = [State, City]#, User, Place, Review, Amenity]
             objects = []
             for c in classes:
                 objects += self.__session.query(c)
-        return {"{}.{}".format(type(obj).__name__, obj.id): item for item in
+        return {"{}.{}".format(type(obj).__name__, obj.id): obj for obj in
                 objects}
 
     def new(self, obj):
