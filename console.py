@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -118,8 +119,8 @@ class HBNBCommand(cmd.Cmd):
         try:
             if not args:
                 raise SyntaxError()
-            command = args.split(" ")
-            # print(command)
+            command = shlex.split(args)
+            print(command)
             # create the object like this => eval(BaseModel())
             obj = eval("{}()".format(command[0]))
             # populate the object's parameters
