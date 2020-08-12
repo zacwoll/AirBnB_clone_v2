@@ -40,7 +40,9 @@ class test_basemodel(unittest.TestCase):
         self.assertIsNotNone(BaseModel.__doc__)
         self.assertIsNotNone(BaseModel.__init__.__doc__)
         self.assertIsNotNone(BaseModel.__str__.__doc__)
+        self.assertIsNotNone(BaseModel.new.__doc__)
         self.assertIsNotNone(BaseModel.save.__doc__)
+        self.assertIsNotNone(BaseModel.delete.__doc__)
         self.assertIsNotNone(BaseModel.to_dict.__doc__)
 
     def test_default(self):
