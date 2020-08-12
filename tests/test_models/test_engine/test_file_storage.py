@@ -12,7 +12,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from models.engine.file_storage import FileStorage
+from models import storage
 
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
@@ -33,7 +33,7 @@ class test_fileStorage(unittest.TestCase):
             pass
 
     def test_pep8_FileStorage(self):
-        """test pep8 style"""
+        """to test for pep8 """
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(['models/engine/file_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
@@ -121,3 +121,7 @@ class test_fileStorage(unittest.TestCase):
         from models.engine.file_storage import FileStorage
         print(type(storage))
         self.assertEqual(type(storage), FileStorage)
+
+
+if __name__ == "__main__":
+            unittest.main()

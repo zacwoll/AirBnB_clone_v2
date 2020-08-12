@@ -23,7 +23,6 @@ class test_basemodel(unittest.TestCase):
         pass
 
     def tearDown(self):
-<<<<<<< HEAD
         """ tear it down """
         try:
             os.remove('file.json')
@@ -43,12 +42,6 @@ class test_basemodel(unittest.TestCase):
         self.assertIsNotNone(BaseModel.__str__.__doc__)
         self.assertIsNotNone(BaseModel.save.__doc__)
         self.assertIsNotNone(BaseModel.to_dict.__doc__)
-=======
-        try:
-            os.remove('file.json')
-        except FileNotFoundError:
-            pass
->>>>>>> fc4b981897eaedac110859f0722cb813a17db221
 
     def test_default(self):
         """ i am not sure what this test was for """
@@ -119,4 +112,4 @@ class test_basemodel(unittest.TestCase):
         self.assertEqual(type(new.updated_at), datetime.datetime)
         n = new.to_dict()
         new = BaseModel(**n)
-        self.assertTrue(new.created_at < new.updated_at)
+        self.assertTrue(new.created_at != new.updated_at)
