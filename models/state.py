@@ -16,6 +16,7 @@ class State(BaseModel, Base):
         cities = relationship("City", backref="state",
                               cascade="all, delete-orphan")
     else:
+        @property
         def cities(self):
             """ Gets a list of all cities in state """
             return [city for city in models.storage.all(City).values() if
