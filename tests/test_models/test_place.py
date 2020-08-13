@@ -2,7 +2,7 @@
 """ module for state reviews"""
 import unittest
 import pep8
-from models.state import Place
+from models.place import Place
 from models.base_model import BaseModel
 import os
 
@@ -62,16 +62,16 @@ class TestPlace(unittest.TestCase):
 
     def test_Place_is_subclass(self):
         """ test if Place is subclass of BaseModel """
-        self.assertTrue(issubclass(self.state.__class__, BaseModel), True)
+        self.assertTrue(issubclass(self.place.__class__, BaseModel), True)
 
     def test_Place_save(self):
         """ test save() command """
-        self.state.save()
-        self.assertNotEqual(self.state.created_at, self.state_updated_at)
+        self.place.save()
+        self.assertNotEqual(self.place.created_at, self.place.updated_at)
 
     def test_Place_sa_instance_state(self):
         """ test is _sa_instance_state has been removed """
-        self.assertNotIn('_sa_instance_state', self.state.to_dict())
+        self.assertNotIn('_sa_instance_state', self.place.to_dict())
 
 if __name__ == "__main__":
     unittest.main()

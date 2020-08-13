@@ -46,7 +46,7 @@ class TestState(unittest.TestCase):
     def test_State_save(self):
         """ test save() command """
         self.state.save()
-        self.assertNotEqual(self.state.created_at, self.state_updated_at)
+        self.assertNotEqual(self.state.created_at, self.state.updated_at)
 
     def test_State_sa_instance_state(self):
         """ test is _sa_instance_state has been removed """

@@ -1,39 +1,58 @@
 #!/usr/bin/python3
-""" module for city tests"""
+""" module for state reviews"""
 import unittest
 import pep8
 from models.city import City
+from models.base_model import BaseModel
+import os
 
+class TestCity(unittest.TestCase):
+    """ a class for testing City"""
 
-class test_City(unittest.TestCase):
-    """ class for testing city"""
+    @classmethod
+    def setUpClass(cls):
+        """ Example Data """
+        cls.city = City()
+        cls.city.name = "San Francisco"
+        cls.city.state_id = "san-francisco"
 
-    def __init__(self, *args, **kwargs):
-        """ init method"""
-        super().__init__(*args, **kwargs)
-        self.name = "City"
-        self.value = City
+    def teardown(cls):
+        """ tear down Class """
+        del cls.city
 
-    def test_docs_city(self):
-        """check for docs"""
-        self.assertIsNotNone(City.__doc__)
+    def tearDown(self):
+        try:
+            os.remove('file.json')
+        except FileNotFoundError:
+            pass
 
-    def test_pep8_city(self):
-        """check for pep8ness"""
+    def test_City_pep8(self):
+        """check for pep8 """
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/city.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
 
-    def test_state_id(self):
-        """ checking state id is a str"""
-        new = self.value()
-        self.assertEqual(type(new.state_id), str)
+    def test_City_docs(self):
+        """ check for docstring """
+        self.assertIsNotNone(City.__doc__)
 
-    def test_name(self):
-        """ is name a string"""
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+    def test_City_attribute_types(self):
+        """ test City attribute types """
+        self.assertEqual(type(self.city.name), str)
+        self.assertEqual(type(self.city.state_id), str)
 
+    def test_City_is_subclass(self):
+        """ test if City is subclass of BaseModel """
+        self.assertTrue(issubclass(self.city.__class__, BaseModel), True)
+
+    def test_City_save(self):
+        """ test save() command """
+        self.city.save()
+        self.assertNotEqual(self.city.created_at, self.city.updated_at)
+
+    def test_City_sa_instance_state(self):
+        """ test is _sa_instance_state has been removed """
+        self.assertNotIn('_sa_instance_state', self.city.to_dict())
 
 if __name__ == "__main__":
     unittest.main()

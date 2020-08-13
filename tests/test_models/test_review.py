@@ -19,7 +19,7 @@ class TestReview(unittest.TestCase):
 
     def teardown(cls):
         """ tear down Class """
-        del cls.review
+        del cls.rev
 
     def tearDown(self):
         try:
@@ -27,13 +27,13 @@ class TestReview(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-    def test_pep8.review(self):
+    def test_Review_pep8(self):
         """check for pep8 """
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/review.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
 
-    def test_docs.review(self):
+    def test_Review_docs(self):
         """ check for docstring """
         self.assertIsNotNone(Review.__doc__)
 
@@ -53,7 +53,7 @@ class TestReview(unittest.TestCase):
         self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
 
     def test_Review_sa_instance_state(self):
-        """ test is _sa_instance.review has been removed """
+        """ test is _sa_instance_state has been removed """
         self.assertNotIn('_sa_instance_state', self.rev.to_dict())
 
 if __name__ == "__main__":

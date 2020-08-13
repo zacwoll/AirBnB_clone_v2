@@ -13,10 +13,10 @@ class TestUser(unittest.TestCase):
     def setUpClass(cls):
         """ Example Data """
         cls.user = User()
-        cls.user.first_name = "Paul"
-        cls.user.last_name = "Bunyan"
-        cls.user.email = "ox_lover@gmail.com"
-        cls.user.password = "babetheblueox"
+        cls.user.first_name = "Madame"
+        cls.user.last_name = "Tabitha"
+        cls.user.email = "gildedlily@gmail.com"
+        cls.user.password = "gildedlily123"
 
     @classmethod
     def teardown(cls):
