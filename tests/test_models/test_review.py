@@ -1,44 +1,60 @@
 #!/usr/bin/python3
-""" module for tests on Review """
+""" module for.review reviews"""
 import unittest
 import pep8
 from models.review import Review
-
+from models.base_model import BaseModel
+import os
 
 class TestReview(unittest.TestCase):
-    """ tests for review"""
+    """ a class for testing Review"""
 
-    def __init__(self, *args, **kwargs):
-        """ init method """
-        super().__init__(*args, **kwargs)
-        self.name = "Review"
-        self.value = Review
+    @classmethod
+    def setUpClass(cls):
+        """ Example Data """
+        cls.rev = Review()
+        cls.rev.place_id = "gilded-lily"
+        cls.rev.user_id = "johnny-sinner"
+        cls.rev.text = "Best Damn Flowers this side of San Francisco"
 
-    def test_pep8_review(self):
-        """check for pep8"""
+    def teardown(cls):
+        """ tear down Class """
+        del cls.review
+
+    def tearDown(self):
+        try:
+            os.remove('file.json')
+        except FileNotFoundError:
+            pass
+
+    def test_pep8.review(self):
+        """check for pep8 """
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/review.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
 
-    def test_docs_review(self):
-        """ check for docstrings """
+    def test_docs.review(self):
+        """ check for docstring """
         self.assertIsNotNone(Review.__doc__)
 
-    def test_place_id(self):
-        """ place id"""
-        new = self.value()
-        self.assertEqual(type(new.place_id), str)
+    def test_Review_attribute_types(self):
+        """ test Review attribute types """
+        self.assertEqual(type(self.rev.place_id), str)
+        self.assertEqual(type(self.rev.user_id), str)
+        self.assertEqual(type(self.rev.text), str)
 
-    def test_user_id(self):
-        """ user id"""
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
+    def test_Review_is_subclass(self):
+        """ test if Review is subclass of BaseModel """
+        self.assertTrue(issubclass(self.rev.__class__, BaseModel), True)
 
-    def test_text(self):
-        """ test test """
-        new = self.value()
-        self.assertEqual(type(new.text), str)
+    def test_Review_save(self):
+        """ test save() command """
+        self.rev.save()
+        self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
 
+    def test_Review_sa_instance_state(self):
+        """ test is _sa_instance.review has been removed """
+        self.assertNotIn('_sa_instance_state', self.rev.to_dict())
 
 if __name__ == "__main__":
     unittest.main()

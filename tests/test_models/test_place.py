@@ -1,84 +1,77 @@
 #!/usr/bin/python3
-""" module for place tests """
+""" module for state reviews"""
 import unittest
 import pep8
-from models.place import Place
+from models.state import Place
+from models.base_model import BaseModel
+import os
 
+class TestPlace(unittest.TestCase):
+    """ a class for testing Place"""
 
-class test_Place(unittest.TestCase):
-    """ class for testing Place"""
+    @classmethod
+    def setUpClass(cls):
+        """ Example Data """
+        cls.place = Place()
+        cls.place.city_id = "san-francisco"
+        cls.place.user_id = "madame-tabitha"
+        cls.place.name = "Gilded Lily"
+        cls.place.description = "A fragrant paradise where flowers bloom"
+        cls.place.number_rooms = 30
+        cls.place.number_bathrooms = 5
+        cls.place.max_guest = 3
+        cls.place.price_by_night = 500
+        cls.place.latitude = 37.77
+        cls.place.longitude = 122.42
+        cls.place.amenity_ids = ["1324-asdf"]
 
-    def __init__(self, *args, **kwargs):
-        """ init method"""
-        super().__init__(*args, **kwargs)
-        self.name = "Place"
-        self.value = Place
+    @classmethod
+    def teardown(cls):
+        """ tear down Class """
+        del cls.state
 
-    def test_pep8_place(self):
-        """is it pep8"""
+    def tearDown(self):
+        try:
+            os.remove('file.json')
+        except FileNotFoundError:
+            pass
+
+    def test_Place_pep8(self):
+        """check for pep8 """
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(["models/place.py"])
+        p = style.check_files(["models/state.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
 
-    def test_docs_place(self):
-        """check for docstrings """
+    def test_Place_docs(self):
+        """ check for docstring """
         self.assertIsNotNone(Place.__doc__)
 
-    def test_city_id(self):
-        """ is id a str"""
-        new = self.value()
-        self.assertEqual(type(new.city_id), str)
+    def test_Place_attribute_types(self):
+        """ test Place attribute types """
+        self.assertEqual(type(self.place.city_id), str)
+        self.assertEqual(type(self.place.user_id), str)
+        self.assertEqual(type(self.place.name), str)
+        self.assertEqual(type(self.place.description), str)
+        self.assertEqual(type(self.place.number_rooms), int)
+        self.assertEqual(type(self.place.number_bathrooms), int)
+        self.assertEqual(type(self.place.max_guest), int)
+        self.assertEqual(type(self.place.price_by_night), int)
+        self.assertEqual(type(self.place.latitude), float)
+        self.assertEqual(type(self.place.longitude), float)
+        self.assertEqual(type(self.place.amenity_ids), list)
 
-    def test_user_id(self):
-        """ is user id a thing"""
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
+    def test_Place_is_subclass(self):
+        """ test if Place is subclass of BaseModel """
+        self.assertTrue(issubclass(self.state.__class__, BaseModel), True)
 
-    def test_name(self):
-        """ is name a str"""
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+    def test_Place_save(self):
+        """ test save() command """
+        self.state.save()
+        self.assertNotEqual(self.state.created_at, self.state_updated_at)
 
-    def test_description(self):
-        """ is description"""
-        new = self.value()
-        self.assertEqual(type(new.description), str)
-
-    def test_number_rooms(self):
-        """ is no of rooms"""
-        new = self.value()
-        self.assertEqual(type(new.number_rooms), int)
-
-    def test_number_bathrooms(self):
-        """ is # of bathrooms"""
-        new = self.value()
-        self.assertEqual(type(new.number_bathrooms), int)
-
-    def test_max_guest(self):
-        """ maximum guest"""
-        new = self.value()
-        self.assertEqual(type(new.max_guest), int)
-
-    def test_price_by_night(self):
-        """ price by night"""
-        new = self.value()
-        self.assertEqual(type(new.price_by_night), int)
-
-    def test_latitude(self):
-        """ latitude"""
-        new = self.value()
-        self.assertEqual(type(new.latitude), float)
-
-    def test_longitude(self):
-        """ longitude"""
-        new = self.value()
-        self.assertEqual(type(new.latitude), float)
-
-    def test_amenity_ids(self):
-        """ amenity ids"""
-        new = self.value()
-        self.assertEqual(type(new.amenity_ids), list)
-
+    def test_Place_sa_instance_state(self):
+        """ test is _sa_instance_state has been removed """
+        self.assertNotIn('_sa_instance_state', self.state.to_dict())
 
 if __name__ == "__main__":
     unittest.main()
