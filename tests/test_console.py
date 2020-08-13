@@ -69,6 +69,7 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd("\n")
             self.assertEqual('', f.getvalue())
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != "db", "Using db")
     def test_create(self):
         """Test create command input"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -84,8 +85,6 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd("create User")
             self.assertTrue(f.getvalue() is not None)
 
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != "db",
-                     "Using db")
     def test_create_db(self):
         """Test create command inpout DB"""
         with patch('sys.stdout', new=StringIO()) as f:
