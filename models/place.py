@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, Float, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from os import getenv
+import models
 
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60),
@@ -38,9 +39,7 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
-            """Return list of Review instances with place_id equal to current
-            Place.id
-            """
+            """ Gets all reviews associated with Place """
             list_reviews = []
             for review in models.storage.all(Review).values:
                 if self.id == review.place_id:
@@ -49,20 +48,16 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
-            """getter that returns the list of Amenity instances based on
-            the attribute amenity_ids that contain all Amenity.id linked
-            to the Place
-            """
+            """ Gets all amenities associated with Place """
             list_amenities = []
-            for amenity in models.storage.all(Amenity).values:
+            for amenity in models.storage.all("amenities").values:
                 if self.id == amenity.place_id:
                     list_amenities.append(amenity)
             return list_amenities
 
         @amenities.setter
         def amenities(self, obj):
-            """setter that handles append method for adding an Amenity.id
-            to the attribute amenity_ids
-            """
+            """ Setter attribute amenities that handles append method for
+            adding an Amenity.id to the attribute amenity_id """
             if type(obj) == 'Amenity':
                 self.amenity_ids.append(obj.id)
