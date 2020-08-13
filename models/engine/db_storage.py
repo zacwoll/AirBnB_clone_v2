@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.base_model import Base
 
+
 class DBStorage:
     """ db """
     __engine = None
@@ -24,7 +25,8 @@ class DBStorage:
         env = getenv('HBNB_ENV')
 
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                      .format(user, pwd, host, db), pool_pre_ping=True)
+                                      .format(user, pwd, host, db),
+                                      pool_pre_ping=True)
 
         if env == "test":
             Base.metadata.drop_all(self.__engine)
@@ -34,7 +36,7 @@ class DBStorage:
         if cls:
             objects = self.__session.query(cls).all()
         else:
-            classes = [State, City]#, User, Place, Review, Amenity]
+            classes = [State, City]  # , User, Place, Review, Amenity]
             objects = []
             for c in classes:
                 objects += self.__session.query(c)
