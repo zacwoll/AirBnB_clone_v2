@@ -17,7 +17,7 @@ class test_Place(unittest.TestCase):
     def test_pep8_place(self):
         """is it pep8"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(["place.py"])
+        p = style.check_files(["models/place.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
 
     def test_docs_place(self):

@@ -21,7 +21,7 @@ class test_City(unittest.TestCase):
     def test_pep8_city(self):
         """check for pep8ness"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(["city.py"])
+        p = style.check_files(["models/city.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
 
     def test_state_id(self):

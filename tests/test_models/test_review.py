@@ -17,7 +17,7 @@ class TestReview(unittest.TestCase):
     def test_pep8_review(self):
         """check for pep8"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(["review.py"])
+        p = style.check_files(["models/review.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
 
     def test_docs_review(self):

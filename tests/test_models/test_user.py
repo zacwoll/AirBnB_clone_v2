@@ -3,46 +3,49 @@
 import unittest
 import pep8
 from models.user import User
+import os
 
 
 class TestUser(unittest.TestCase):
     """ a class for user tests"""
 
-    def __init__(self, *args, **kwargs):
-        """ init method """
-        super().__init__(*args, **kwargs)
-        self.name = "User"
-        self.value = User
+    @classmethod
+    def setUpClass(cls):
+        """ Example Data """
+        cls.user = User()
+        cls.user.first_name = "Paul"
+        cls.user.last_name = "Bunyan"
+        cls.user.email = "ox_lover@gmail.com"
+        cls.user.password = "babetheblueox"
+
+    @classmethod
+    def teardown(cls):
+        """ Tear down the class """
+        del cls.user
+
+    def tearDown(self):
+        """ Tear down the file (file storage) """
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
 
     def test_pep8_user(self):
         """tests for pep8 """
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(["user.py"])
+        p = style.check_files(["models/user.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
 
     def test_docs_user(self):
         """ check for docstrings """
         self.assertIsNotNone(User.__doc__)
 
-    def test_first_name(self):
-        """ is first name a str"""
-        new = self.value()
-        self.assertEqual(type(new.first_name), str)
-
-    def test_last_name(self):
-        """ is last name a str"""
-        new = self.value()
-        self.assertEqual(type(new.last_name), str)
-
-    def test_email(self):
-        """ is email a str"""
-        new = self.value()
-        self.assertEqual(type(new.email), str)
-
-    def test_password(self):
-        """ is pwd a str"""
-        new = self.value()
-        self.assertEqual(type(new.password), str)
+    def test_attribute_types_User(self):
+        """test attribute type for User"""
+        self.assertEqual(type(self.user.email), str)
+        self.assertEqual(type(self.user.password), str)
+        self.assertEqual(type(self.user.first_name), str)
+        self.assertEqual(type(self.user.first_name), str)
 
 
 if __name__ == "__main__":
