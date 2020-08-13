@@ -76,33 +76,33 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "** class name missing **\n", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
-             HBNBCommand().onecmd("create asdfsfsd")
-             self.assertEqual(
+            HBNBCommand().onecmd("create asdfsfsd")
+            self.assertEqual(
                 "** class doesn't exist **\n", f.getvalue())
 
         with patch('sys.stdout', new=StringIO()) as f:
-             HBNBCommand().onecmd("create User")
-             self.assertTrue(f.getvalue() is not None)
+            HBNBCommand().onecmd("create User")
+            self.assertTrue(f.getvalue() is not None)
 
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != "db",
                      "Using db")
     def test_create_db(self):
         """Test create command inpout DB"""
         with patch('sys.stdout', new=StringIO()) as f:
-             HBNBCommand().onecmd("create")
-             self.assertEqual(
+            HBNBCommand().onecmd("create")
+            self.assertEqual(
                 "** class name missing **\n", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
-             HBNBCommand().onecmd("create asdfsfsd")
-             self.assertEqual(
+            HBNBCommand().onecmd("create asdfsfsd")
+            self.assertEqual(
                 "** class doesn't exist **\n", f.getvalue())
 
         with patch('sys.stdout', new=StringIO()) as f:
-             HBNBCommand().onecmd('create State name="California!"')
-             s = f.getvalue()
+            HBNBCommand().onecmd('create State name="California!"')
+            s = f.getvalue()
         with patch('sys.stdout', new=StringIO()) as f:
-             HBNBCommand().onecmd("all State")
-             self.assertEqual(
+            HBNBCommand().onecmd("all State")
+            self.assertEqual(
                 "[[State]", f.getvalue()[:8])
 
     def test_show(self):
@@ -201,7 +201,8 @@ class TestConsole(unittest.TestCase):
                 "*** Unknown syntax: Butts.count()\n", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("State.count()")
-            self.assertEqual("*** Unknown syntax: State.count()\n", f.getvalue())
+            self.assertEqual(
+                "*** Unknown syntax: State.count()\n", f.getvalue())
 
     def test_dot_show(self):
         """Test show command """

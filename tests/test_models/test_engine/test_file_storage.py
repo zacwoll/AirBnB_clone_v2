@@ -14,6 +14,7 @@ from models.place import Place
 from models.review import Review
 from models import storage
 
+
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
 
@@ -124,4 +125,4 @@ class test_fileStorage(unittest.TestCase):
 
 
 if __name__ == "__main__":
-            unittest.main()
+    unittest.main()
