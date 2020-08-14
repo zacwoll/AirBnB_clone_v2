@@ -47,6 +47,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """ Deletes an object from memory """
         if obj is not None:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             try:
