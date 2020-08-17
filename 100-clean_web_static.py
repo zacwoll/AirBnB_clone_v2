@@ -69,3 +69,12 @@ def deploy():
     if archive_path is None:
         return False
     return do_deploy(archive_path)
+
+
+def do_clean(number=0):
+    """ Clean up old archives """
+    number = 2 if int(number) < 2 else int(number) + 1
+    local("ls -1t versions/ | tail -n +{} | xargs rm"
+          .format(number))
+    run("ls -1t /data/web_static/releases | tail -n +3 | xargs rm"
+        .format(number))

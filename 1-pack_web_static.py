@@ -7,11 +7,10 @@ from fabric.api import local
 
 
 def do_pack():
-    time = datetime.now()
-    name = "web_static_" + str(time.year) + str(time.month) + str(time.day) \
-        + str(time.hour) + str(time.minute) + str(time.second) + ".tgz"
+    time = datetime.now().strftime("%Y%m%d%H%M%S")
+    fname = "web_static_" + time + ".tgz"
     local("mkdir -p versions")
-    archive = local("tar -cvzf versions/{} web_static".format(name))
+    archive = local("tar -cvzf versions/{} web_static".format(fname))
     if archive.failed:
         return None
-    return "versions/{}".format(name)
+    return "versions/{}".format(fname)
