@@ -16,6 +16,17 @@ env.user = 'ubuntu'
 env.key_filename = "~/.ssh/holberton"
 
 
+def do_pack():
+    time = datetime.now()
+    name = "web_static_" + str(time.year) + str(time.month) + str(time.day) \
+        + str(time.hour) + str(time.minute) + str(time.second) + ".tgz"
+    local("mkdir -p versions")
+    archive = local("tar -cvzf versions/{} web_static".format(name))
+    if archive.failed:
+        return None
+    return "versions/{}".format(name)
+
+
 def do_deploy(archive_path):
     # Returns False if the file at the path archive_path doesn't exist
     if not isfile(archive_path):
@@ -51,3 +62,11 @@ def do_deploy(archive_path):
     # Deployed
     print("New version deployed!")
     return True
+
+
+def deploy():
+    """ Create and distribute an archive to your web servers """
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
