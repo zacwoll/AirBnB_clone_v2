@@ -17,6 +17,7 @@ env.key_filename = "~/.ssh/holberton"
 
 
 def do_deploy(archive_path):
+    """ Deploy a tarball to web_server(s) """
     # Returns False if the file at the path archive_path doesn't exist
     if not isfile(archive_path):
         return False

@@ -7,6 +7,7 @@ from fabric.api import local
 
 
 def do_pack():
+    """ Pack web_static into a tarball """
     time = datetime.now().strftime("%Y%m%d%H%M%S")
     fname = "web_static_" + time + ".tgz"
     local("mkdir -p versions")

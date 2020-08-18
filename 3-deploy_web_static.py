@@ -17,6 +17,7 @@ env.key_filename = "~/.ssh/holberton"
 
 
 def do_pack():
+    """ Pack web_static into a tarball """
     time = datetime.now().strftime("%Y%m%d%H%M%S")
     fname = "web_static_" + time + ".tgz"
     local("mkdir -p versions")
@@ -27,6 +28,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
+    """ Deploy a tarball to web_server(s) """
     # Returns False if the file at the path archive_path doesn't exist
     if not isfile(archive_path):
         return False
