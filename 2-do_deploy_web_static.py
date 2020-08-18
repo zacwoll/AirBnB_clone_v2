@@ -26,7 +26,6 @@ def do_deploy(archive_path):
     # Archive_name without the .tgz extension or the parent directories
     archive_name = splitext(basename(archive_path))[0]
 
-    print("shit")
     # Create the directory (if not exists) that the files will be moved to
     run("mkdir -p /data/web_static/releases/{}".format(archive_name))
 
@@ -46,7 +45,7 @@ def do_deploy(archive_path):
 
     # Remove redundant directory
     run("mv /data/web_static/current/web_static/* /data/web_static/current/")
-    run("rm -rf /data/web_static/current/web_static")
+    run("sudo rm -rf /data/web_static/current/web_static")
 
     # Deployed
     print("New version deployed!")
