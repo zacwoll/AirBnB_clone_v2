@@ -37,16 +37,19 @@ def do_deploy(archive_path):
     # Delete the archive (tarball) from the web server
     run("rm /tmp/{}.tgz".format(archive_name))
 
-    # Delete the symbolic link from the web server
-    run("rm -rf /data/web_static/current")
+    # Move the files from the web_static dir into it's parent directory
+    run('mv /data/web_static/releases/{}/web_static/* \
+        /data/web_static/releases/{}/'.format(archive_name, archive_name)
+
+    # Remove now redundant directory
+    run('rm -rf /data/web_static/releases/{}/web_static')
+
+    # Remove old 'current' symlink
+    run('rm -rf /data/web_static/current')
 
     # Create a new symbolic link, linked to the newest version
     run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
         .format(archive_name))
-
-    # Remove redundant directory
-    run("mv /data/web_static/current/web_static/* /data/web_static/current/")
-    run("sudo rm -rf /data/web_static/current/web_static")
 
     # Deployed
     print("New version deployed!")
