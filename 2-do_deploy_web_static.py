@@ -42,7 +42,7 @@ def do_deploy(archive_path):
         /data/web_static/releases/{}/'.format(archive_name, archive_name))
 
     # Remove now redundant directory
-    run('rm -rf /data/web_static/releases/{}/web_static')
+    run('rm -rf /data/web_static/releases/{}/web_static'.format(archive_name))
 
     # Remove old 'current' symlink
     run('rm -rf /data/web_static/current')
