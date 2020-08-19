@@ -32,13 +32,13 @@ def do_deploy(archive_path):
     # Returns False if the file at the path archive_path doesn't exist
     if not isfile(archive_path):
         return False
+
     # Uploads archive to the /tmp directory of the web server
     put(archive_path, '/tmp')
 
     # Archive_name without the .tgz extension or the parent directories
     archive_name = splitext(basename(archive_path))[0]
 
-    print("shit")
     # Create the directory (if not exists) that the files will be moved to
     run("mkdir -p /data/web_static/releases/{}".format(archive_name))
 
@@ -49,16 +49,19 @@ def do_deploy(archive_path):
     # Delete the archive (tarball) from the web server
     run("rm /tmp/{}.tgz".format(archive_name))
 
-    # Delete the symbolic link from the web server
-    run("rm -rf /data/web_static/current")
+    # Move the files from the web_static dir into it's parent directory
+    run('mv /data/web_static/releases/{}/web_static/* \
+        /data/web_static/releases/{}/'.format(archive_name, archive_name))
+
+    # Remove now redundant directory
+    run('rm -rf /data/web_static/releases/{}/web_static'.format(archive_name))
+
+    # Remove old 'current' symlink
+    run('rm -rf /data/web_static/current')
 
     # Create a new symbolic link, linked to the newest version
     run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
         .format(archive_name))
-
-    # Remove redundant directory
-    run("mv /data/web_static/current/web_static/* /data/web_static/current/")
-    run("rm -rf /data/web_static/current/web_static")
 
     # Deployed
     print("New version deployed!")

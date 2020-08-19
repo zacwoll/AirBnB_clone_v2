@@ -21,6 +21,7 @@ def do_deploy(archive_path):
     # Returns False if the file at the path archive_path doesn't exist
     if not isfile(archive_path):
         return False
+
     # Uploads archive to the /tmp directory of the web server
     put(archive_path, '/tmp')
 

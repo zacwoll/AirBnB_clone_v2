@@ -78,5 +78,5 @@ def do_clean(number=0):
     number = 2 if int(number) < 2 else int(number) + 1
     local("ls -1t versions/ | tail -n +{} | xargs rm"
           .format(number))
-    run("ls -1t /data/web_static/releases | tail -n +3 | xargs rm"
+    run("ls -1t /data/web_static/releases | tail -n +{} | xargs rm"
         .format(number))
