@@ -39,7 +39,7 @@ def do_deploy(archive_path):
 
     # Move the files from the web_static dir into it's parent directory
     run('mv /data/web_static/releases/{}/web_static/* \
-        /data/web_static/releases/{}/'.format(archive_name, archive_name)
+        /data/web_static/releases/{}/'.format(archive_name, archive_name))
 
     # Remove now redundant directory
     run('rm -rf /data/web_static/releases/{}/web_static')
