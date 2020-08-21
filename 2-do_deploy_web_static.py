@@ -13,7 +13,7 @@ env.hosts = [
 ]
 # Username
 env.user = 'ubuntu'
-# env.key_filename = "~/.ssh/holberton"
+env.key_filename = "~/.ssh/holberton"
 
 
 def do_deploy(archive_path):
@@ -26,7 +26,7 @@ def do_deploy(archive_path):
     put(archive_path, '/tmp')
 
     # Archive_name without the .tgz extension or the parent directories
-    archive_name = splitext(basename(archive_path))[0]
+    archive_name = basename(archive_path).split('.')[0]
 
     # Create the directory (if not exists) that the files will be moved to
     run("mkdir -p /data/web_static/releases/{}".format(archive_name))
@@ -53,5 +53,5 @@ def do_deploy(archive_path):
         .format(archive_name))
 
     # Deployed
-    # print("New version deployed!")
+    print("New version deployed!")
     return True
