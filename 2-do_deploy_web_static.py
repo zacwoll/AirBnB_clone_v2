@@ -13,7 +13,7 @@ env.hosts = [
 ]
 # Username
 env.user = 'ubuntu'
-env.key_filename = "~/.ssh/holberton"
+# env.key_filename = "~/.ssh/holberton"
 
 
 def do_deploy(archive_path):
@@ -53,5 +53,5 @@ def do_deploy(archive_path):
         .format(archive_name))
 
     # Deployed
-    print("New version deployed!")
+    # print("New version deployed!")
     return True
