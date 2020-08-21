@@ -26,7 +26,7 @@ def do_deploy(archive_path):
     put(archive_path, '/tmp')
 
     # Archive_name without the .tgz extension or the parent directories
-    archive_name = basename(archive_path).split('.')[0]
+    archive_name = splitext(basename(archive_path))[0]
 
     # Create the directory (if not exists) that the files will be moved to
     run("mkdir -p /data/web_static/releases/{}".format(archive_name))
