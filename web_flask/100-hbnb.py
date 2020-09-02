@@ -13,6 +13,7 @@ def close_db(close_db):
     """ Closes db session """
     storage.close()
 
+
 @app.route('/hbnb_filters', strict_slashes=False)
 def get_states(id='0'):
     """ Display HTML page with list of states """

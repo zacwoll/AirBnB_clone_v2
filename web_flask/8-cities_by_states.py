@@ -11,11 +11,13 @@ def close_db(close_db):
     """ Closes db session """
     storage.close()
 
+
 @app.route('/cities_by_states', strict_slashes=False)
 def get_states():
     """ Display HTML page with list of states """
     return render_template('8-cities_by_states.html',
                            states=storage.all(State).values())
+
 
 if __name__ == '__main__':
     storage.reload()
